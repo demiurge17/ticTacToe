@@ -296,6 +296,25 @@ public class ticTacToe implements ActionListener {
 		{
 			oWon(2,4,6);
 		}
+		
+		//if it is a draw
+		
+		boolean draw= true;
+		
+		for(int i = 0; i<9; i++)
+		{
+			if(buttons[i].getText() == "")
+			{
+				draw = false;
+				break;
+			}
+			
+		}
+		
+		if(draw)
+		{
+			drawGame();
+		}
 	}
 	
 	public void xWon(int a, int b, int c) {
@@ -343,5 +362,15 @@ public class ticTacToe implements ActionListener {
 		newGameButton.setVisible(false);
 		exitButton.setVisible(false);
 		firstTurn();
+	}
+	
+	public void drawGame() {
+		for(int i= 0; i<9; i++) {
+			buttons[i].setEnabled(true);
+		}
+		
+		textField.setText("It's a draw");
+		newGameButton.setVisible(true);
+		exitButton.setVisible(true);
 	}
 }
