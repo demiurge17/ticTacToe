@@ -13,6 +13,9 @@ public class ticTacToe implements ActionListener {
 	JPanel buttonPanel= new JPanel();
 	JLabel textField= new JLabel();
 	JButton[] buttons= new JButton[9];
+	JButton newGameButton = new JButton("New Game");
+	JButton exitButton= new JButton("Exit Game");
+	JPanel controlPanel = new JPanel();
 	boolean player1_turn;
 	
 	
@@ -45,6 +48,7 @@ public class ticTacToe implements ActionListener {
 			buttons[i].setFont(new Font("Poppins", Font.BOLD, 100));
 			buttons[i].setFocusable(false);
 			buttons[i].addActionListener(this);
+			buttons[i].setBackground(new Color(0,100,100));
 			
 		}
 		
@@ -52,12 +56,46 @@ public class ticTacToe implements ActionListener {
 		frame.add(titlePanel,BorderLayout.NORTH);
 		frame.add(buttonPanel);
 		
-		firstTurn();
+		//new game and exit
+		
+		controlPanel.setLayout(new FlowLayout());
+		controlPanel.setBackground(new Color(0,25,50));
+		
+		newGameButton.setFont(new Font("Poppins", Font.BOLD,25));
+		newGameButton.setFocusable(false);
+		newGameButton.setVisible(false);
+		newGameButton.addActionListener(this);
+		newGameButton.setBackground(new Color(100, 255, 200));
+		
+		
+		exitButton.setFont(new Font("Poppins", Font.BOLD,25));
+		exitButton.setFocusable(false);
+		exitButton.setVisible(false);
+		exitButton.addActionListener(this);
+		exitButton.setBackground(new Color(100,255,200));
+		
+		controlPanel.add(newGameButton);
+		controlPanel.add(exitButton);
+		
+		frame.add(controlPanel, BorderLayout.SOUTH);
+		
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()== newGameButton)
+		{
+			resetGame();
+			return;
+		}
+		
+		if(e.getSource()== exitButton)
+		{
+			System.exit(0);
+		}
+		
 		for (int i=0; i<9; i++)
 		{
 			if(e.getSource()== buttons[i])
@@ -87,6 +125,8 @@ public class ticTacToe implements ActionListener {
 				}
 			}
 		}
+		
+		
 		
 	}
 	
@@ -270,6 +310,9 @@ public class ticTacToe implements ActionListener {
 		
 		textField.setText("X wins");
 		
+		newGameButton.setVisible(true);
+		exitButton.setVisible(true);
+		
 	}
 	
 	public void oWon(int a, int b, int c) {
@@ -284,6 +327,21 @@ public class ticTacToe implements ActionListener {
 		
 		textField.setText("O wins");
 		
+		newGameButton.setVisible(true);
+		exitButton.setVisible(true);
 		
+		
+	}
+	
+	public void resetGame() {
+		for(int i= 0; i<9; i++) {
+			buttons[i].setText("");
+			buttons[i].setEnabled(true);
+			buttons[i].setBackground(new Color(0,100,100));
+		}
+		
+		newGameButton.setVisible(false);
+		exitButton.setVisible(false);
+		firstTurn();
 	}
 }
